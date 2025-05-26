@@ -74,7 +74,7 @@ const { sendEmail } = require('./email/app');
 
 async function main() {
     const games = await fetchData();
-    const conteudo = games.map(game => `${game.titulo} - ${game.preco}\n${game.link}\n`).join('\n');
+    const conteudo = games.map(game => \`\${game.titulo} - \${game.preco}\n\${game.link}\n\`).join('\n');
 
     await sendEmail(conteudo);
 }
@@ -98,16 +98,19 @@ node main.js
 
 ---
 
-## ✅ **Para testar o disparo de email, basta substituir o email contido nesse trecho de codigo, para um de sua escolha**
-    ```javascript 
+## ✅ **Como testar o disparo de e-mail**
+
+Para testar o envio do e-mail, basta substituir o destinatário (`to`) pelo e-mail de sua escolha, conforme o exemplo abaixo:
+
+```javascript
 async function sendEmail(conteudo) {
   try {
     const info = await transporter.sendMail({
-      from: `"Steam Promo Bot" <${process.env.EMAIL_USER}>`,
-      to: 'seuemail@gmail.com',
+      from: \`"Steam Promo Bot" <\${process.env.EMAIL_USER}>\`,
+      to: 'seuemail@gmail.com',  // Substitua por seu e-mail
       subject: 'Relatório das melhores ofertas da Steam',
       text: conteudo,  // Conteúdo em texto
-      html: `<div style="font-family: Arial; line-height: 1.5;"><pre>${conteudo}</pre></div>`,  
+      html: \`<div style="font-family: Arial; line-height: 1.5;"><pre>\${conteudo}</pre></div>\`,  
     });
 
     console.log('E-mail enviado: %s', info.messageId);
@@ -116,6 +119,9 @@ async function sendEmail(conteudo) {
   }
 }
 ```
+
+---
+
 ## 🛠️ **Tecnologias utilizadas**
 
 - [Node.js](https://nodejs.org/)
@@ -135,5 +141,3 @@ Sinta-se à vontade para abrir issues ou PRs.
 
 - Não abuse do scraping — respeite os termos de uso da Steam.
 - Cuidado ao expor dados sensíveis (e-mail e senha).
-
-
