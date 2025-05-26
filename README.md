@@ -98,6 +98,24 @@ node main.js
 
 ---
 
+## ✅ **Para testar o disparo de email, basta substituir o email contido nesse trecho de codigo, para um de sua escolha**
+    ```javascript 
+async function sendEmail(conteudo) {
+  try {
+    const info = await transporter.sendMail({
+      from: `"Steam Promo Bot" <${process.env.EMAIL_USER}>`,
+      to: 'seuemail@gmail.com',
+      subject: 'Relatório das melhores ofertas da Steam',
+      text: conteudo,  // Conteúdo em texto
+      html: `<div style="font-family: Arial; line-height: 1.5;"><pre>${conteudo}</pre></div>`,  
+    });
+
+    console.log('E-mail enviado: %s', info.messageId);
+  } catch (error) {
+    console.error('Erro ao enviar o e-mail:', error);
+  }
+}
+```
 ## 🛠️ **Tecnologias utilizadas**
 
 - [Node.js](https://nodejs.org/)
